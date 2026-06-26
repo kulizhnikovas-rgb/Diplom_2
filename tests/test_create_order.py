@@ -1,11 +1,11 @@
 import requests
 import allure
 from data.urls import URL
+from data.data import INVALID_INGREDIENTS
 
 @allure.epic("Stellar Burgers API")
 @allure.feature("Создание заказа")
 class TestCreateOrder:
-    INVALID_INGREDIENTS = ["invalid_hash"]
     
     @allure.title("Создание заказа с авторизацией")
     def test_create_order_authorized_user_success(self, user, valid_ingredients):
@@ -58,7 +58,7 @@ class TestCreateOrder:
 
     @allure.title("Ошибка создания заказа с неверным хешем ингредиентов")
     def test_create_order_invalid_ingredients_shows_error(self): 
-        payload = {"ingredients": self.INVALID_INGREDIENTS}
+        payload = {"ingredients": INVALID_INGREDIENTS}
         
         with allure.step("Отправить POST-запрос со сломанным хешем"):
             response = requests.post(URL.CREATE_ORDER, json=payload)

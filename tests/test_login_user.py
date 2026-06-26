@@ -1,7 +1,7 @@
 import requests
 import allure
 from data.urls import URL
-from helpers.user_helper import generate_random_user_data
+
 
 @allure.epic("Stellar Burgers API")
 @allure.feature("Авторизация пользователя")

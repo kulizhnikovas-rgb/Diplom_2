@@ -9,7 +9,7 @@ from helpers.user_helper import generate_random_user_data
 class TestCreateUser:
    
     @allure.title("Успешное создание уникального пользователя")
-    def test_create_user_unique_data_success(self):
+    def test_create_user_unique_data_success(self, register_user):
        user_data = generate_random_user_data()
 
        with allure.step("Отправить POST-запрос на регистрацию уникального пользователя"):
@@ -20,8 +20,7 @@ class TestCreateUser:
             assert response.json().get("success") is True
 
        token = response.json().get("accessToken")
-       if token:
-            requests.delete(URL.USER_DATA, headers={"Authorization": token})
+       register_user["token"] = token
 
     @allure.title("Ошибка при создании уже зарегистрированного пользователя")
     def test_create_user_existing_data_shows_error(self, user):

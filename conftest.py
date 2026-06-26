@@ -24,3 +24,13 @@ def valid_ingredients():
     response = requests.get(URL.INGREDIENTS)
     ingredients_data = response.json().get("data", [])
     return [ing["_id"] for ing in ingredients_data[:2]]
+
+@pytest.fixture
+def register_user():
+    user_info = {"token": None}
+
+    yield user_info
+
+    if user_info["token"]:
+        with allure.step("Постусловие: Удаление зарегистрированного пользователя"):
+            requests.delete(URL.USER_DATA, headers={"Authorization": user_info["token"]})
