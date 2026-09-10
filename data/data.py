@@ -1,0 +1,1 @@
+INVALID_INGREDIENTS = ["invalid_hash"]
